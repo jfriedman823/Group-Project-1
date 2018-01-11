@@ -4,6 +4,7 @@
 
 ## Team Frog
 ![alt text](https://i.ytimg.com/vi/dFyPJ9TBjPw/maxresdefault.jpg)
+![alt text](groupPhoto.jpg)
 - Robert
 - Keka
 - Rich
