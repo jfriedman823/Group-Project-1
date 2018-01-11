@@ -3,7 +3,6 @@
 ## Project Title: Trailer Park
 
 ## Team Frog
-![](https://i.ytimg.com/vi/dFyPJ9TBjPw/maxresdefault.jpg =250x250)
 ![alt text](https://i.ytimg.com/vi/dFyPJ9TBjPw/maxresdefault.jpg)
 - Robert
 - Keka
@@ -19,3 +18,15 @@ An app that uses the user's search parameters to pull and display a trailer usin
 - OMDB
 
 ## Breakdown of Tasks:
+
+### Robert
+[ ]
+
+### Keka
+[ ]
+
+### Rich
+[ ]
+
+### Jeremy
+[ ]
