@@ -33,7 +33,7 @@ An app that uses the user's search parameters to pull and display a trailer usin
 - [ ] call API
 
 ### Rich
-- [ ] other stuff
+- [ ] build basic UI
 
 ### Jeremy
 - [ ] on user search add " trailer"
