@@ -27,7 +27,7 @@ An app that uses the user's search parameters to pull and display a trailer usin
 ## Breakdown of Tasks:
 
 ### Robert
-- [ ] 
+- [ ] stuff
 
 ### Keka
 - [ ] call API
