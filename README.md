@@ -14,7 +14,10 @@
 An app that uses the user's search parameters to pull and display a trailer using the Youtube API and a rating using the Rotten Tomatoes API.
 
 ## UI Mockup
-![alt text](wireframe)
+![alt text](wireframe.jpg)
+
+## Architecture
+![alt text](architecture.jpg)
 
 ## APIs to be used:
 - Youtube
