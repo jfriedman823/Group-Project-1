@@ -23,10 +23,10 @@ An app that uses the user's search parameters to pull and display a trailer usin
 - [ ] stuff
 
 ### Keka
-- [ ] stuff
+- [ ] more stuff
 
 ### Rich
-- [ ] stuff
+- [ ] other stuff
 
 ### Jeremy
-- [ ] more stuff
+- [ ] more other stuff stuff
