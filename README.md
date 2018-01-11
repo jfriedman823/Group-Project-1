@@ -3,6 +3,7 @@
 ## Project Title: Trailer Park
 
 ## Team Frog
+![](https://i.ytimg.com/vi/dFyPJ9TBjPw/maxresdefault.jpg =250x250)
 ![alt text](https://i.ytimg.com/vi/dFyPJ9TBjPw/maxresdefault.jpg)
 - Robert
 - Keka
