@@ -16,7 +16,6 @@ $(function() {
             // use userInput to pull from the OMDB API
 
             var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy";
-            
 
                  $.ajax ( {
                      url: queryURL,
@@ -24,6 +23,20 @@ $(function() {
                 }).done(function(response) {
                      $("#movieResults").text(JSON.stringify(response));
                      console.log(response);
+
+                     function response(movies)
+                     {
+                       console.log(movies);
+
+                       for (var m in movies)
+                       {
+                         var movie = movies[m];
+                         var title = movie.title;
+                         var rating = movie.imdbRating;
+                         var poster =
+                       }
+                     }
+
                  });
 
             // display the Youtube video and poster
