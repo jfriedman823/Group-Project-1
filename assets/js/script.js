@@ -5,28 +5,30 @@ $(function() {
     // functions
 
         // scroll animate
-        window.sr = ScrollReveal();
+        // window.sr = ScrollReveal();
+        //
+        //     //animate header
+        //     sr.reveal(".header", {
+        //         duration: 2000,
+        //         origin: "bottom"
+        //     });
+        //
+        //     //animate search bar
+        //     sr.reveal(".searchBar", {
+        //         duration: 4000,
+        //         origin: "bottom"
+        //     });
 
-            //animate header
-            sr.reveal(".header", {
-                duration: 2000,
-                origin: "bottom"
-            });
 
-            //animate search bar
-            sr.reveal(".searchBar", {
-                duration: 4000,
-                origin: "bottom"
-            });
-            
-                
 
         // onclick display trailer and poster using userInput
-        $(".submitBtn").on("click", function() {
+        $(".submitBtn").on("click", function(event) {
+            event.preventDefault();
+
 
             // add " trailer" to the userInput
-            userInput = $("#userInput").val().trim();
-            trailerSearch = userInput + " trailer";
+            var userInput = $("#userInput").val().trim();
+            var trailerSearch = userInput + " trailer";
 
             // use trailerSearch to pull from the Youtube API
 
@@ -38,21 +40,19 @@ $(function() {
                      url: queryURL,
                     method: 'GET'
                 }).done(function(response) {
-                     $("#movieResults").text(JSON.stringify(response));
+                     $("#movie-view").text(JSON.stringify(response));
                      console.log(response);
 
-                     function response(movies)
-                     {
-                       console.log(movies);
+                     // Retrieving the URL for the image
+                     var imgURL = response.Poster;
 
-                       for (var m in movies)
-                       {
-                         var movie = movies[m];
-                         var title = movie.title;
-                         var rating = movie.imdbRating;
-                         var poster =
-                       }
-                     }
+                     // Creating an element to hold the image
+                     var image = $("<img>").attr("src", imgURL);
+
+                     $(".poster").html(image);
+
+                     // Appending the image
+                     //movieDiv.append(image);
 
                  });
 
