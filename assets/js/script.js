@@ -4,6 +4,23 @@ $(function() {
 
     // functions
 
+        // scroll animate
+        window.sr = ScrollReveal();
+
+            //animate header
+            sr.reveal(".header", {
+                duration: 2000,
+                origin: "bottom"
+            });
+
+            //animate search bar
+            sr.reveal(".searchBar", {
+                duration: 4000,
+                origin: "bottom"
+            });
+            
+                
+
         // onclick display trailer and poster using userInput
         $(".submitBtn").on("click", function() {
 
