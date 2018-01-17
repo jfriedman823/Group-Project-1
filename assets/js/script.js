@@ -15,7 +15,7 @@ $(function() {
     var searchDisplay = `
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4"></h1>
+                <h1 class="display-4 title"></h1>
                 <div class="trailer"></div>
                 <div class="poster"></div>
             </div>
@@ -39,6 +39,19 @@ $(function() {
                 origin: "bottom"
             });
 
+        // toUpperCase
+        function titleCase(str) {
+            str = str.toLowerCase().split(' ');
+       
+            for(var i = 0; i < str.length; i++){
+                 str[i] = str[i].split('');
+                 str[i][0] = str[i][0].toUpperCase();
+                 str[i] = str[i].join('');
+            }
+            return str.join(' ');
+        };
+
+
         // onclick return to the home page
         $(".homeBtn").on("click", function(event) {
             event.preventDefault();
@@ -47,6 +60,7 @@ $(function() {
             $(".contentContainer").empty();
             $(".contentContainer").html(homeDisplay);
         });
+
 
 
         // onclick display trailer and poster using userInput
@@ -62,10 +76,13 @@ $(function() {
             $(".contentContainer").empty();
             $(".contentContainer").html(searchDisplay);
 
+            // append the movie name
+            var title = titleCase(userInput);
+                $(".title").text(title);
+
             // use trailerSearch to pull from the Youtube API
 
             // use userInput to pull from the OMDB API
-
             var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=9f68b70";
 
                  $.ajax ( {
