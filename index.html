@@ -17,44 +17,75 @@
   </head>
 
   <body>
-    <!-- Header  -->
-    <div class="jumbotron jumbotron-fluid header">
-      <div class="container">
-        <h1 class="display-4">Trailer Park</h1>
-        <p class="lead">Search for your favorite film.</p>
+    <!-- Static Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">TP</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link homeBtn" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Movies</a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">TV</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Games</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 searchBar">
+            <input class="form-control mr-sm-2" id="userInput" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0 submitBtn" type="submit">Search</button>
+          </form>
       </div>
-    </div>
+    </nav>
 
-    <!-- User Input -->
-    <div class="panel-body searchBar">
-      <form>
-        <div class="form-group">
-          <label for="userInput">Movie Name</label>
-          <input class="form-control" id="userInput" type="text">
+    <div class="container contentContainer">
+      
+      <!-- Header  -->
+      <div class="jumbotron jumbotron-fluid header">
+        <div class="container">
+          <h1 class="display-4">Trailer Park</h1>
+          <p class="lead">Search for your favorite film.</p>
         </div>
-        <!--<div class="form-group">
-          <label for="movie-year-input">Year</label>
-          <input class="form-control" id="movie-year-input" type="text">
-        </div>
-        <div class="form-group">
-          <label for="actor-name-input">Actor Name</label>
-          <input class="form-control" id="actor-name-input" type="text">
-        </div> -->
-
-        <button class="btn btn-primary submitBtn" id="search-film-btn" type="submit">Submit</button>
-      </form>
-    </div>
-
-    <!--Poster and Trailer-->
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4"></h1>
-        <div class="trailer"></div>
-        <div class="poster"></div>
-
-        
       </div>
+
+      <!-- User Input -->
+      <!-- <div class="panel-body searchBar">
+        <form>
+          <div class="form-group">
+            <label for="userInput">Movie Name</label>
+            <input class="form-control" id="userInput" type="text">
+          </div>
+          <div class="form-group">
+            <label for="movie-year-input">Year</label>
+            <input class="form-control" id="movie-year-input" type="text">
+          </div>
+          <div class="form-group">
+            <label for="actor-name-input">Actor Name</label>
+            <input class="form-control" id="actor-name-input" type="text">
+          </div>
+
+          <button class="btn btn-primary submitBtn" id="search-film-btn" type="submit">Submit</button>
+        </form>
+      </div> -->
+
+      <!--Poster and Trailer-->
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4"></h1>
+          <div class="trailer"></div>
+          <div class="poster"></div>
+        </div>
+      </div>
+    
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
