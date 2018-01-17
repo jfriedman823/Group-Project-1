@@ -2,23 +2,51 @@ $(function() {
 
     // variables
 
+    // html code chunks
+    var homeDisplay = `
+        <div class="jumbotron jumbotron-fluid header">
+            <div class="container">
+                <h1 class="display-4">Trailer Park</h1>
+                <p class="lead">Search for your favorite film.</p>
+            </div>
+        </div>
+    `
+
+    var searchDisplay = `
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4"></h1>
+                <div class="trailer"></div>
+                <div class="poster"></div>
+            </div>
+        </div>
+    `
+
     // functions
 
         // scroll animate
-        // window.sr = ScrollReveal();
-        //
-        //     //animate header
-        //     sr.reveal(".header", {
-        //         duration: 2000,
-        //         origin: "bottom"
-        //     });
-        //
-        //     //animate search bar
-        //     sr.reveal(".searchBar", {
-        //         duration: 4000,
-        //         origin: "bottom"
-        //     });
+        window.sr = ScrollReveal();
+        
+            //animate header
+            sr.reveal(".header", {
+                duration: 2000,
+                origin: "bottom"
+            });
+        
+            //animate search bar
+            sr.reveal(".searchBar", {
+                duration: 4000,
+                origin: "bottom"
+            });
 
+        // onclick return to the home page
+        $(".homeBtn").on("click", function(event) {
+            event.preventDefault();
+
+            // dynamically replace html
+            $(".contentContainer").empty();
+            $(".contentContainer").html(homeDisplay);
+        });
 
 
         // onclick display trailer and poster using userInput
@@ -30,16 +58,24 @@ $(function() {
             var userInput = $("#userInput").val().trim();
             var trailerSearch = userInput + " trailer";
 
+            // dynamically replace html
+            $(".contentContainer").empty();
+            $(".contentContainer").html(searchDisplay);
+
             // use trailerSearch to pull from the Youtube API
 
             // use userInput to pull from the OMDB API
 
-            var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=trilogy";
+            var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=9f68b70";
 
                  $.ajax ( {
                      url: queryURL,
                     method: 'GET'
                 }).done(function(response) {
+                    
+                    // Empty the poster div
+                    $(".poster").empty();
+
                      $("#movie-view").text(JSON.stringify(response));
                      console.log(response);
 
@@ -49,14 +85,11 @@ $(function() {
                      // Creating an element to hold the image
                      var image = $("<img>").attr("src", imgURL);
 
+                    //  Display the poster
                      $(".poster").html(image);
 
-                     // Appending the image
-                     //movieDiv.append(image);
 
                  });
-
-            // display the Youtube video and poster
 
         });
 
