@@ -1,3 +1,45 @@
+body {
+    background-color: black;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+
+    border: solid 3px rgba(153, 243, 17, 0.637);
+    background-color: rgb(73, 72, 72) !important;
+}
+
+.nav-link {
+    color: rgba(241, 234, 234, 0.959) !important;
+}
+
+.searchBar {
+    margin-left: 62%;
+}
+
+.contentContainer {
+    margin-left: 15%;
+    margin-top: 4%;
+    border-top: solid 6px transparent;
+    height: 100vh;
+    background-color: white;
+    width: 70%;
+    padding: 0;
+}
+
+.jumbotron {
+    width: 100%;
+    margin: 0;
+    height: 100vh;
+}
+
 .header {
+    text-align: center;
+}
+
+.title {
     text-align: center;
 }
