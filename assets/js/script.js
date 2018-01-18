@@ -1,6 +1,13 @@
 $(function() {
 
     // variables
+    var youtubeID = "";
+    var youtubeLink = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + youtubeID + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    var youtubeTest = '<iframe width="560" height="315" src="https://www.youtube.com/embed/V3Tp0X1OlBQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    
+
+    // Pulling Youtube API
+
 
     // html code chunks
     var homeDisplay = `
@@ -18,21 +25,69 @@ $(function() {
                 <h1 class="display-4 title"></h1>
                 <div class="trailer"></div>
                 <div class="poster"></div>
+
             </div>
+
+            <div class="jumbotron footerStyle">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="plot"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                  <div class="actors"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="MovieRating"></div>
+                </div>
+              </div>
+              </div>
+            </div>
+
+
+
+
         </div>
     `
 
     // functions
 
+    var YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/search";
+
+    // parameters object
+    var parameters = {
+     part: 'snippet',
+     key: 'AIzaSyBTUrsKGzURto5Z2fG6dHY1KLm-nVVfALA',
+     type: 'video'
+    };
+    
+    // create clickable images
+    var displayResults = function(data){
+     console.log(data)
+    //  data.items.forEach(function(item){
+       $('.trailer').append(
+         '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + data.items[1].id.videoId + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+    //  });
+    };
+    
+    // function to get data
+    var getData = function() {
+     $.getJSON(YOUTUBE_BASE_URL, parameters, displayResults);
+    };
+
         // scroll animate
         window.sr = ScrollReveal();
-        
+
             //animate header
             sr.reveal(".header", {
                 duration: 2000,
                 origin: "bottom"
             });
-        
+
             //animate search bar
             sr.reveal(".searchBar", {
                 duration: 4000,
@@ -42,7 +97,7 @@ $(function() {
         // toUpperCase
         function titleCase(str) {
             str = str.toLowerCase().split(' ');
-       
+
             for(var i = 0; i < str.length; i++){
                  str[i] = str[i].split('');
                  str[i][0] = str[i][0].toUpperCase();
@@ -70,17 +125,31 @@ $(function() {
 
             // add " trailer" to the userInput
             var userInput = $("#userInput").val().trim();
-            var trailerSearch = userInput + " trailer";
+            var trailerSearch = userInput + "+trailer";
+            console.log(trailerSearch);
 
             // dynamically replace html
             $(".contentContainer").empty();
             $(".contentContainer").html(searchDisplay);
 
             // append the movie name
-            var title = titleCase(userInput);
-                $(".title").text(title);
+             // var title = titleCase(userInput);
+             //    $(".title").text(title);
+
+
 
             // use trailerSearch to pull from the Youtube API
+            
+            // event listeners
+            //  $('img').remove();
+             parameters.q = trailerSearch;
+             getData();
+
+
+            // $(".trailer").empty();
+            // $(".trailer").html(youtubeTest);
+
+            
 
             // use userInput to pull from the OMDB API
             var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=9f68b70";
@@ -89,7 +158,7 @@ $(function() {
                      url: queryURL,
                     method: 'GET'
                 }).done(function(response) {
-                    
+
                     // Empty the poster div
                     $(".poster").empty();
 
@@ -105,10 +174,33 @@ $(function() {
                     //  Display the poster
                      $(".poster").html(image);
 
+                     // Pull the rating
+
+                     var MovieRating = response.imdbRating;
+
+                     // Display the rating
+
+                     $(".MovieRating").html("<b>Rating:</b> " + MovieRating);
+
+                    //Replace the movie title with title from API
+
+                    var title = response.Title;
+                       $(".title").text(title);
+
+                    //Create a variable for the API plot
+                    var plot = response.Plot;
+
+                    //Append the Plot
+                    $(".plot").html("<b>Plot:</b> " + plot);
+
+                    //Create a variable for the API Actors
+                    var actors = response.Actors;
+
+                    //Append the Actors
+                    $(".actors").html("<b>Actors:</b> " + actors);
 
                  });
 
-        });
-
+            });
 
 });

@@ -44,6 +44,7 @@ body {
     text-align: center;
 }
 
+<<<<<<< HEAD
 .carousel-inner {
     max-height: 75%;
     background-size: 75%;
@@ -54,3 +55,12 @@ body {
 
 
 }
+=======
+.MovieRating {
+  color: red;
+}
+
+/*.footerStyle {
+  background-color: #99ccff;
+}*/
+>>>>>>> 54291aafcc9171250659a709a782f27d6ed50f01
