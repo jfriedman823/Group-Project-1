@@ -25,7 +25,32 @@ $(function() {
                 <h1 class="display-4 title"></h1>
                 <div class="trailer"></div>
                 <div class="poster"></div>
+
             </div>
+
+            <div class="jumbotron footerStyle">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="plot"></div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                  <div class="actors"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="MovieRating"></div>
+                </div>
+              </div>
+              </div>
+            </div>
+
+
+
+
         </div>
     `
 
@@ -56,13 +81,13 @@ $(function() {
 
         // scroll animate
         window.sr = ScrollReveal();
-        
+
             //animate header
             sr.reveal(".header", {
                 duration: 2000,
                 origin: "bottom"
             });
-        
+
             //animate search bar
             sr.reveal(".searchBar", {
                 duration: 4000,
@@ -72,7 +97,7 @@ $(function() {
         // toUpperCase
         function titleCase(str) {
             str = str.toLowerCase().split(' ');
-       
+
             for(var i = 0; i < str.length; i++){
                  str[i] = str[i].split('');
                  str[i][0] = str[i][0].toUpperCase();
@@ -108,8 +133,10 @@ $(function() {
             $(".contentContainer").html(searchDisplay);
 
             // append the movie name
-            var title = titleCase(userInput);
-                $(".title").text(title);
+             // var title = titleCase(userInput);
+             //    $(".title").text(title);
+
+
 
             // use trailerSearch to pull from the Youtube API
             
@@ -131,7 +158,7 @@ $(function() {
                      url: queryURL,
                     method: 'GET'
                 }).done(function(response) {
-                    
+
                     // Empty the poster div
                     $(".poster").empty();
 
@@ -147,6 +174,30 @@ $(function() {
                     //  Display the poster
                      $(".poster").html(image);
 
+                     // Pull the rating
+
+                     var MovieRating = response.imdbRating;
+
+                     // Display the rating
+
+                     $(".MovieRating").html("<b>Rating:</b> " + MovieRating);
+
+                    //Replace the movie title with title from API
+
+                    var title = response.Title;
+                       $(".title").text(title);
+
+                    //Create a variable for the API plot
+                    var plot = response.Plot;
+
+                    //Append the Plot
+                    $(".plot").html("<b>Plot:</b> " + plot);
+
+                    //Create a variable for the API Actors
+                    var actors = response.Actors;
+
+                    //Append the Actors
+                    $(".actors").html("<b>Actors:</b> " + actors);
 
                  });
 

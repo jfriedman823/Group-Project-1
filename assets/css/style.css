@@ -43,3 +43,11 @@ body {
 .title {
     text-align: center;
 }
+
+.MovieRating {
+  color: red;
+}
+
+/*.footerStyle {
+  background-color: #99ccff;
+}*/
