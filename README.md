@@ -1,6 +1,4 @@
-# Project Proposal
-
-## Project Title: Trailer Park
+# Trailer Park
 
 ## Team Frog
 ![alt text](assets/images/readme/groupPhoto.jpg)
