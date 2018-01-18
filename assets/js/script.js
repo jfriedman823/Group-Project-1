@@ -1,6 +1,13 @@
 $(function() {
 
     // variables
+    var youtubeID = "";
+    var youtubeLink = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + youtubeID + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    var youtubeTest = '<iframe width="560" height="315" src="https://www.youtube.com/embed/V3Tp0X1OlBQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    
+
+    // Pulling Youtube API
+
 
     // html code chunks
     var homeDisplay = `
@@ -23,6 +30,29 @@ $(function() {
     `
 
     // functions
+
+    var YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/search";
+
+    // parameters object
+    var parameters = {
+     part: 'snippet',
+     key: 'AIzaSyBTUrsKGzURto5Z2fG6dHY1KLm-nVVfALA',
+     type: 'video'
+    };
+    
+    // create clickable images
+    var displayResults = function(data){
+     console.log(data)
+    //  data.items.forEach(function(item){
+       $('.trailer').append(
+         '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + data.items[1].id.videoId + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+    //  });
+    };
+    
+    // function to get data
+    var getData = function() {
+     $.getJSON(YOUTUBE_BASE_URL, parameters, displayResults);
+    };
 
         // scroll animate
         window.sr = ScrollReveal();
@@ -70,7 +100,8 @@ $(function() {
 
             // add " trailer" to the userInput
             var userInput = $("#userInput").val().trim();
-            var trailerSearch = userInput + " trailer";
+            var trailerSearch = userInput + "+trailer";
+            console.log(trailerSearch);
 
             // dynamically replace html
             $(".contentContainer").empty();
@@ -81,6 +112,17 @@ $(function() {
                 $(".title").text(title);
 
             // use trailerSearch to pull from the Youtube API
+            
+            // event listeners
+            //  $('img').remove();
+             parameters.q = trailerSearch;
+             getData();
+
+
+            // $(".trailer").empty();
+            // $(".trailer").html(youtubeTest);
+
+            
 
             // use userInput to pull from the OMDB API
             var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=9f68b70";
@@ -108,7 +150,6 @@ $(function() {
 
                  });
 
-        });
-
+            });
 
 });
