@@ -44,18 +44,17 @@ body {
     text-align: center;
 }
 
-<<<<<<< HEAD
+
 .carousel-inner {
     max-height: 75%;
     background-size: 75%;
     background: rgb(73, 72, 72);
-    border: solid 3px rgba(153, 243, 17, 0.637);
+    border: solid 3px rgba(153, 243, 17);
     resize: 80%;
 }
 
 
-}
-=======
+
 .MovieRating {
   color: red;
 }
@@ -63,4 +62,4 @@ body {
 /*.footerStyle {
   background-color: #99ccff;
 }*/
->>>>>>> 54291aafcc9171250659a709a782f27d6ed50f01
+
