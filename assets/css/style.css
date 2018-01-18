@@ -1,0 +1,19 @@
+html {
+	background-color: yellow;
+}
+
+.jumbotron_header {
+	margin: 300px;
+	background-color: grey;
+	color: black;
+	font-weight: 150px;
+	font-weight: 150px;
+	font-size: 60px;
+}
+
+#wrapper {
+	background-image: url("../images/RP1-Columbus.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
