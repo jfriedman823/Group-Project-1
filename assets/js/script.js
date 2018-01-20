@@ -4,10 +4,6 @@ $(function() {
     var youtubeID = "";
     var youtubeLink = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + youtubeID + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
     var youtubeTest = '<iframe width="560" height="315" src="https://www.youtube.com/embed/V3Tp0X1OlBQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-    
-
-    // Pulling Youtube API
-
 
     // html code chunks
     var homeDisplay = `
@@ -23,35 +19,22 @@ $(function() {
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h1 class="display-4 title"></h1>
-                <div class="trailer"></div>
-                <div class="poster"></div>
-
-            </div>
-
-            <div class="jumbotron footerStyle">
-              <div class="container">
                 <div class="row">
-                  <div class="col-md-12">
-                    <div class="plot"></div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                  <div class="actors"></div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="MovieRating"></div>
-                </div>
-              </div>
-              </div>
+                    <div class="col-sm-4">
+                        <div class="poster"></div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="trailer"></div>
+                        </div>
+                        <div class="row">
+                            <div class="actors"></div>
+                        </div>
+                        <div class="row">
+                            <div class="MovieRating"></div>
+                        </div>
+                    </div>
             </div>
-
-
-
-
-        </div>
     `
 
     // functions
@@ -129,25 +112,13 @@ $(function() {
             console.log(trailerSearch);
 
             // dynamically replace html
-            $(".contentContainer").empty();
-            $(".contentContainer").html(searchDisplay);
+            $(".trailerDisplay").empty();
+            $(".trailerDisplay").html(searchDisplay);
 
-            // append the movie name
-             // var title = titleCase(userInput);
-             //    $(".title").text(title);
-
-
-
-            // use trailerSearch to pull from the Youtube API
             
             // event listeners
-            //  $('img').remove();
              parameters.q = trailerSearch;
              getData();
-
-
-            // $(".trailer").empty();
-            // $(".trailer").html(youtubeTest);
 
             
 
@@ -176,11 +147,13 @@ $(function() {
 
                      // Pull the rating
 
-                     var MovieRating = response.imdbRating;
+                     var imdbRating = response.imdbRating;
+                    //  var rtRating = response.Ratings[1].value;
+                    //  var mcRating = response.Ratings[3].value;
 
                      // Display the rating
 
-                     $(".MovieRating").html("<b>Rating:</b> " + MovieRating);
+                     $(".MovieRating").html("<b>Rating:</b> " + imdbRating);
 
                     //Replace the movie title with title from API
 
