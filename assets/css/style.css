@@ -42,7 +42,6 @@ body {
 }
 
 .header {
-<<<<<<< HEAD
     text-align: center;
 }
 
@@ -65,9 +64,8 @@ body {
   color: red;
   font-family: 'Iceland', cursive;
   font-size: 33px;
-=======
-    background-color: white;
->>>>>>> 803296f098a4ce8a89930077a593048c3bbb6c3b
+   background-color: white;
+
 }
 
 h1 {
