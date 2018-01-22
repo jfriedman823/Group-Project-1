@@ -13,6 +13,7 @@ $(function() {
                 <p class="lead">Search for your favorite film.</p>
             </div>
         </div>
+        <div class="trailerDisplay"></div>
     `
 
     var searchDisplay = `
@@ -39,28 +40,25 @@ $(function() {
 
     // functions
 
-    var YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/search";
+        // call on Youtube API
+        var YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/search";
 
-    // parameters object
-    var parameters = {
-     part: 'snippet',
-     key: 'AIzaSyBTUrsKGzURto5Z2fG6dHY1KLm-nVVfALA',
-     type: 'video'
-    };
+        var parameters = {
+            part: 'snippet',
+            key: 'AIzaSyBTUrsKGzURto5Z2fG6dHY1KLm-nVVfALA',
+            type: 'video'
+        };
     
-    // create clickable images
-    var displayResults = function(data){
-     console.log(data)
-    //  data.items.forEach(function(item){
-       $('.trailer').append(
-         '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + data.items[1].id.videoId + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
-    //  });
-    };
+        var displayResults = function(data){
+            console.log(data)
+            $('.trailer').append(
+            '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + data.items[1].id.videoId + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+        };
     
-    // function to get data
-    var getData = function() {
-     $.getJSON(YOUTUBE_BASE_URL, parameters, displayResults);
-    };
+        var getData = function() {
+            $.getJSON(YOUTUBE_BASE_URL, parameters, displayResults);
+        };
+
 
         // scroll animate
         window.sr = ScrollReveal();
@@ -76,6 +74,7 @@ $(function() {
                 duration: 4000,
                 origin: "bottom"
             });
+
 
         // toUpperCase
         function titleCase(str) {
@@ -100,30 +99,21 @@ $(function() {
         });
 
 
-
         // onclick display trailer and poster using userInput
         $(".submitBtn").on("click", function(event) {
             event.preventDefault();
 
 
-            // add " trailer" to the userInput
+            // grab the user input
             var userInput = $("#userInput").val().trim();
-            var trailerSearch = userInput + "+trailer";
-            console.log(trailerSearch);
 
             // dynamically replace html
             $(".trailerDisplay").empty();
             $(".trailerDisplay").html(searchDisplay);
 
-            
-            // event listeners
-             parameters.q = trailerSearch;
-             getData();
-
-            
 
             // use userInput to pull from the OMDB API
-            var queryURL = "https://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey=9f68b70";
+            var queryURL = "http://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
 
                  $.ajax ( {
                      url: queryURL,
@@ -136,41 +126,31 @@ $(function() {
                      $("#movie-view").text(JSON.stringify(response));
                      console.log(response);
 
-                     // Retrieving the URL for the image
+                     // Retrieve url
                      var imgURL = response.Poster;
 
-                     // Creating an element to hold the image
-                     var image = $("<img>").attr("src", imgURL);
-
-                    //  Display the poster
-                     $(".poster").html(image);
-
-                     // Pull the rating
-
-                     var imdbRating = response.imdbRating;
+                    // grab info and place in variables
+                    var image = $("<img>").attr("src", imgURL);
+                    var title = response.Title;
+                    var actors = response.Actors;
+                    var imdbRating = response.imdbRating;
                     //  var rtRating = response.Ratings[1].value;
                     //  var mcRating = response.Ratings[3].value;
-
-                     // Display the rating
-
-                     $(".MovieRating").html("<b>Rating:</b> " + imdbRating);
-
-                    //Replace the movie title with title from API
-
-                    var title = response.Title;
-                       $(".title").text(title);
-
-                    //Create a variable for the API plot
                     var plot = response.Plot;
 
-                    //Append the Plot
-                    $(".plot").html("<b>Plot:</b> " + plot);
+                    // add trailer for the Youtube search
+                    var trailerSearch = title + "+trailer";
+                    console.log(trailerSearch);
+                    parameters.q = trailerSearch;
+                    getData();
 
-                    //Create a variable for the API Actors
-                    var actors = response.Actors;
 
-                    //Append the Actors
+                     // Display the variables
+                    $(".poster").html(image);
+                    $(".title").text(title);
+                    $(".MovieRating").html("<b>Rating:</b> " + imdbRating);
                     $(".actors").html("<b>Actors:</b> " + actors);
+                    $(".plot").html("<b>Plot:</b> " + plot);
 
                  });
 
