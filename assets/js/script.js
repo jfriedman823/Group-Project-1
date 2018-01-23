@@ -6,21 +6,11 @@ $(function() {
     var youtubeTest = '<iframe width="560" height="315" src="https://www.youtube.com/embed/V3Tp0X1OlBQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 
     // html code chunks
-    var homeDisplay = `
-        <div class="jumbotron jumbotron-fluid header">
-            <div class="container">
-                <h1 class="display-4">Trailer Park</h1>
-                <p class="lead">Search for your favorite film.</p>
-            </div>
-        </div>
-        <div class="trailerDisplay"></div>
-    `
-
     var searchDisplay = `
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid trailerDisplay">
             <div class="container">
                 <h1 class="display-4 title"></h1>
-                <div class="row">
+                <div class="row searchContent">
                     <div class="col-sm-4">
                         <div class="poster"></div>
                     </div>
@@ -38,85 +28,88 @@ $(function() {
             </div>
     `
 
-    // functions
+    // scroll animate
+    window.sr = ScrollReveal();
 
-        // call on Youtube API
-        var YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/search";
+        //animate header
+        sr.reveal(".card", {
+            duration: 2000,
+            origin: "bottom"
+        });
 
-        var parameters = {
-            part: 'snippet',
-            key: 'AIzaSyBTUrsKGzURto5Z2fG6dHY1KLm-nVVfALA',
-            type: 'video'
-        };
-    
-        var displayResults = function(data){
-            console.log(data)
-            $('.trailer').append(
-            '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + data.items[1].id.videoId + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
-        };
-    
-        var getData = function() {
-            $.getJSON(YOUTUBE_BASE_URL, parameters, displayResults);
-        };
-
-
-        // scroll animate
-        window.sr = ScrollReveal();
-
-            //animate header
-            sr.reveal(".header", {
-                duration: 2000,
-                origin: "bottom"
-            });
-
-            //animate search bar
-            sr.reveal(".searchBar", {
-                duration: 4000,
-                origin: "bottom"
-            });
-
-
-        // onclick return to the home page
-        $(".homeBtn").on("click", function(event) {
-            event.preventDefault();
-
-            // dynamically replace html
-            $(".contentContainer").empty();
-            $(".contentContainer").html(homeDisplay);
-
-            // empty search bard
-            $("form").trigger("reset");
+        //animate search bar
+        sr.reveal(".trendingContainerOuter", {
+            duration: 4000,
+            origin: "bottom"
         });
 
 
-        // onclick display trailer and poster using userInput
-        $(".submitBtn").on("click", function(event) {
-            event.preventDefault();
+    // display of popular movies
+    var trendingQueryURL = "https://api.themoviedb.org/3/movie/popular?api_key=cf951ca687c6c8d3aa6e201a85673392&language=en-US&page=1";
+
+    $.ajax ( {
+        url: trendingQueryURL,
+        method: 'GET'
+        }).done(function(response) {
+    
+        // $(".trendingContainer").text(JSON.stringify(response));
+        console.log(response.results);
+    
+        for (i = 0; i < response.results.length; i++) {
+            var trendingPoster = $("<img>");
+            trendingPoster.addClass("trendingPoster");
+            trendingPoster.attr("id", response.results[i].title);
+            trendingPoster.attr("src", "http://image.tmdb.org/t/p/w300//" + response.results[i].poster_path);
+            $(".trendingContainerInner").append(trendingPoster);
+        };
+    
+    });
 
 
-            // grab the user input
-            var userInput = $("#userInput").val().trim();
+    // call on Youtube API
+    var YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/search";
 
-            // dynamically replace html
-            $(".trailerDisplay").empty();
-            $(".trailerDisplay").html(searchDisplay);
+    var parameters = {
+        part: 'snippet',
+        key: 'AIzaSyBTUrsKGzURto5Z2fG6dHY1KLm-nVVfALA',
+        type: 'video'
+    };
+    
+    var displayResults = function(data){
+        console.log(data)
+        $('.trailer').append('<iframe width="560" height="315" src="https://www.youtube.com/embed/' + data.items[1].id.videoId + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
+    };
+    
+    var getData = function() {
+        $.getJSON(YOUTUBE_BASE_URL, parameters, displayResults);
+    };
 
 
-            // use userInput to pull from the OMDB API
-            var OMDBqueryURL = "http://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
+    // user search function
+    function userSearch() {
+                    
+        // grab the user input
+        var userInput = $("#userInput").val().trim();
 
-            $.ajax ( {
-                url: OMDBqueryURL,
-                method: 'GET'
+        // dynamically replace html
+        $(".trailerContainer").empty();
+        $(".trailerContainer").html(searchDisplay);
+        
+        // use userInput to pull from the OMDB API
+        var OMDBqueryURL = "http://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
+        
+        $.ajax ( {
+            url: OMDBqueryURL,
+            method: 'GET'
             }).done(function(response) {
-
+        
             // Empty the poster div
             $(".poster").empty();
-                console.log(response);
-
+            console.log(response);
+        
             // Retrieve url
             var imgURL = response.Poster;
-
+        
             // grab info and place in variables
             var image = $("<img>").attr("src", imgURL);
             var title = response.Title;
@@ -125,50 +118,41 @@ $(function() {
             //  var rtRating = response.Ratings[1].value;
             //  var mcRating = response.Ratings[3].value;
             var plot = response.Plot;
-
+        
             // add trailer for the Youtube search
             var trailerSearch = title + "+trailer";
             console.log(trailerSearch);
             parameters.q = trailerSearch;
             getData();
-
-
+        
+        
             // Display the variables
             $(".poster").html(image);
             $(".title").text(title);
             $(".MovieRating").html("<b>Rating:</b> " + imdbRating);
             $(".actors").html("<b>Actors:</b> " + actors);
             $(".plot").html("<b>Plot:</b> " + plot);
-
+        
             // empty search bard
             $("form").trigger("reset");
-
-            });
-
+        
         });
+    }
 
 
-        // popular movies
-        var movieDBqueryURL = "https://api.themoviedb.org/3/movie/popular?api_key=cf951ca687c6c8d3aa6e201a85673392&language=en-US&page=1";
-
-        $.ajax ( {
-            url: movieDBqueryURL,
-            method: 'GET'
-        }).done(function(response) {
-
-            // $(".trendingContainer").text(JSON.stringify(response));
-                console.log(response.results);
-
-            for (i = 0; i < response.results.length; i++) {
-                var trendingPoster = $("<img>");
-                trendingPoster.addClass("trendingPoster");
-                trendingPoster.attr("src", "http://image.tmdb.org/t/p/w185//" + response.results[i].poster_path);
-                $(".trendingContainer").append(trendingPoster);
-            };
-
-            console.log(response.results[0].poster_path);
-
-
+    // onclick display trailer and poster using userInput
+    $(".submitBtn").on("click", function(event) {
+        event.preventDefault();
+        userSearch();
         });
+       
+    
+    // onclick popular posters
+    $(document).on("click", ".trendingPoster", function() {
+        var trendingSearch = ($(this).attr("id"));
+        var inputTrendingSearch = $("#userInput");
+        inputTrendingSearch.val(trendingSearch);
+        userSearch();
+    });
 
 });
