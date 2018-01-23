@@ -87,7 +87,7 @@
 
 }
 
-h1 {
+h1{
     font-family: 'Audiowide', cursive;
 }
 
@@ -100,6 +100,35 @@ h1 {
     font-family: 'Iceland', cursive;
     font-size: 33px;
 }
+
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  background-color: rgb(73, 72, 72);
+  text-align: center;
+  font-size: 15px;
+  color: white;
+}
+
+.hover-image {
+  margin: 5px;
+  height: 75px;
+  width: 75px;
+  -webkit-transition: all 1s ease-in-out;
+  color: green;
+}
+
+.hover-image:hover {
+  height: 75px;
+  width: 75px;
+  filter: none;
+  -webkit-transform: scale(1.25);
+  color: green;
+}
+
 /*.footerStyle {
   background-color: #99ccff;
 }*/
