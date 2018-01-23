@@ -42,7 +42,7 @@ body {
 }
 
 .header {
-    text-align: center;
+    text-align: center !important;
 }
 
 .title {
@@ -84,4 +84,3 @@ h1 {
 /*.footerStyle {
   background-color: #99ccff;
 }*/
-
