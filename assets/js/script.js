@@ -96,6 +96,9 @@ $(function() {
             // dynamically replace html
             $(".contentContainer").empty();
             $(".contentContainer").html(homeDisplay);
+
+            // empty search bard
+            $("form").trigger("reset");
         });
 
 
@@ -151,6 +154,9 @@ $(function() {
                     $(".MovieRating").html("<b>Rating:</b> " + imdbRating);
                     $(".actors").html("<b>Actors:</b> " + actors);
                     $(".plot").html("<b>Plot:</b> " + plot);
+
+                    // empty search bard
+                    $("form").trigger("reset");
 
                  });
 
