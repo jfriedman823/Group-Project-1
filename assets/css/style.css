@@ -50,14 +50,17 @@ body {
 }
 
 
-.carousel-inner {
-    max-height: 75%;
-    background-size: 75%;
-    background: rgb(73, 72, 72);
-    border: solid 3px rgb(153, 243, 17);
-    resize: 80%;
+/* Trending Movies */
+.trendingContainer {
+    height: 275px;
+    overflow-x: scroll;
 }
 
+.trendingPoster {
+    display: inline;
+    vertical-align: top;
+    clear: both;
+}
 
 
 .MovieRating {

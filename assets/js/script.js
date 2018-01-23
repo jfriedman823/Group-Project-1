@@ -76,19 +76,6 @@ $(function() {
             });
 
 
-        // toUpperCase
-        function titleCase(str) {
-            str = str.toLowerCase().split(' ');
-
-            for(var i = 0; i < str.length; i++){
-                 str[i] = str[i].split('');
-                 str[i][0] = str[i][0].toUpperCase();
-                 str[i] = str[i].join('');
-            }
-            return str.join(' ');
-        };
-
-
         // onclick return to the home page
         $(".homeBtn").on("click", function(event) {
             event.preventDefault();
@@ -116,50 +103,72 @@ $(function() {
 
 
             // use userInput to pull from the OMDB API
-            var queryURL = "http://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
+            var OMDBqueryURL = "http://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
 
-                 $.ajax ( {
-                     url: queryURL,
-                    method: 'GET'
-                }).done(function(response) {
+            $.ajax ( {
+                url: OMDBqueryURL,
+                method: 'GET'
+            }).done(function(response) {
 
-                    // Empty the poster div
-                    $(".poster").empty();
+            // Empty the poster div
+            $(".poster").empty();
+                console.log(response);
 
-                     $("#movie-view").text(JSON.stringify(response));
-                     console.log(response);
+            // Retrieve url
+            var imgURL = response.Poster;
 
-                     // Retrieve url
-                     var imgURL = response.Poster;
+            // grab info and place in variables
+            var image = $("<img>").attr("src", imgURL);
+            var title = response.Title;
+            var actors = response.Actors;
+            var imdbRating = response.imdbRating;
+            //  var rtRating = response.Ratings[1].value;
+            //  var mcRating = response.Ratings[3].value;
+            var plot = response.Plot;
 
-                    // grab info and place in variables
-                    var image = $("<img>").attr("src", imgURL);
-                    var title = response.Title;
-                    var actors = response.Actors;
-                    var imdbRating = response.imdbRating;
-                    //  var rtRating = response.Ratings[1].value;
-                    //  var mcRating = response.Ratings[3].value;
-                    var plot = response.Plot;
-
-                    // add trailer for the Youtube search
-                    var trailerSearch = title + "+trailer";
-                    console.log(trailerSearch);
-                    parameters.q = trailerSearch;
-                    getData();
+            // add trailer for the Youtube search
+            var trailerSearch = title + "+trailer";
+            console.log(trailerSearch);
+            parameters.q = trailerSearch;
+            getData();
 
 
-                     // Display the variables
-                    $(".poster").html(image);
-                    $(".title").text(title);
-                    $(".MovieRating").html("<b>Rating:</b> " + imdbRating);
-                    $(".actors").html("<b>Actors:</b> " + actors);
-                    $(".plot").html("<b>Plot:</b> " + plot);
+            // Display the variables
+            $(".poster").html(image);
+            $(".title").text(title);
+            $(".MovieRating").html("<b>Rating:</b> " + imdbRating);
+            $(".actors").html("<b>Actors:</b> " + actors);
+            $(".plot").html("<b>Plot:</b> " + plot);
 
-                    // empty search bard
-                    $("form").trigger("reset");
-
-                 });
+            // empty search bard
+            $("form").trigger("reset");
 
             });
+
+        });
+
+
+        // popular movies
+        var movieDBqueryURL = "https://api.themoviedb.org/3/movie/popular?api_key=cf951ca687c6c8d3aa6e201a85673392&language=en-US&page=1";
+
+        $.ajax ( {
+            url: movieDBqueryURL,
+            method: 'GET'
+        }).done(function(response) {
+
+            // $(".trendingContainer").text(JSON.stringify(response));
+                console.log(response.results);
+
+            for (i = 0; i < response.results.length; i++) {
+                var trendingPoster = $("<img>");
+                trendingPoster.addClass("trendingPoster");
+                trendingPoster.attr("src", "http://image.tmdb.org/t/p/w185//" + response.results[i].poster_path);
+                $(".trendingContainer").append(trendingPoster);
+            };
+
+            console.log(response.results[0].poster_path);
+
+
+        });
 
 });
