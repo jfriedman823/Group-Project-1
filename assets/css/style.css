@@ -1,10 +1,14 @@
+body {
+    background-color: black;
+}
+
+
 /* navbar */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 9999;
-
     border: solid 3px rgba(153, 243, 17, 0.637);
     background-color: rgb(73, 72, 72) !important;
 }
@@ -18,11 +22,12 @@
 }
 
 .searchBar {
-    margin-left: 62%;
+    position: fixed;
+    right: 2%;
 }
 
 
-/* content */
+/* conten containers */
 .contentContainer {
     position: absolute;
     top: 4%;
@@ -41,16 +46,13 @@
     padding: 10px 0;
 }
 
-.title {
-    text-align: center;
-}
-
 
 /* Trending Movies */
 .trendingContainerOuter {
     overflow: scroll;
     width: 100vw;
     height: 300px;
+    
 }
 
 .trendingContainerInner {
@@ -69,66 +71,71 @@
     z-index: 500;
 }
 
-.contentContainer,
-.trailerContainer,
-.trailerDisplay {
-    background-color: rgba(141, 143, 138, 0.863);
+/* trailer */
+.trailerContainer {
+    background-color: rgba(0, 0, 0, 0.863);
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.trailerContainer {
+    height: 100vh;
+    width: 100%;
 }
 
 .trailerDisplay {
-    margin: 0;
+   background-color: black;
+   margin: 0;
+   width: 75%;
+   height: 90%;
+   position: relative;
+   left: 12%;
+   color: white;
+}
+
+.contentDisplay {
+    position: relative;
+    left: 5%;
+}
+
+.title {
+    text-align: center;
 }
 
 .MovieRating {
-  color: red;
-  font-family: 'Iceland', cursive;
-  font-size: 33px;
-   background-color: white;
+  font-size: 20px;
 
-}
-
-h1{
-    font-family: 'Audiowide', cursive;
-}
-
-.plot {
-    font-family: 'Iceland', cursive;
-    font-size: 33px;
 }
 
 .actors {
-    font-family: 'Iceland', cursive;
-    font-size: 33px;
+    font-size: 20px;
 }
 
+
+/* footer */
 .footer {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 0;
-  background-color: rgb(73, 72, 72);
-  text-align: center;
-  font-size: 15px;
-  color: white;
+    margin-bottom: 0;
+    background-color: rgb(73, 72, 72) !important;
+    text-align: center;
+    color: white;
+    padding: 2%;
+  }
+
+.copy {
+    margin-top: 2%;
 }
 
 .hover-image {
-  margin: 5px;
-  height: 75px;
-  width: 75px;
-  -webkit-transition: all 1s ease-in-out;
-  color: green;
-}
-
-.hover-image:hover {
-  height: 75px;
-  width: 75px;
-  filter: none;
-  -webkit-transform: scale(1.25);
-  color: green;
-}
-
-/*.footerStyle {
-  background-color: #99ccff;
-}*/
+    margin: 5px;
+    height: 75px;
+    width: 75px;
+    -webkit-transition: all 1s ease-in-out;
+    color: green;
+  }
+  
+  .hover-image:hover {
+    height: 75px;
+    width: 75px;
+    filter: none;
+    -webkit-transform: scale(1.25);
+    color: green;
+  }
