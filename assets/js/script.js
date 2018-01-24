@@ -8,7 +8,7 @@ $(function() {
 
     // html code chunks
     var searchDisplay = `
-        <div class="jumbotron jumbotron-fluid trailerDisplay">
+        <div class="jumbotron jumbotron-fluid trailerDisplay" id="searchDisplay">
             <div class="container contentDisplay">
                 <h1 class="display-4 title"></h1>
                 <div class="row searchContent">
@@ -136,6 +136,11 @@ $(function() {
         
             // empty search bard
             $("form").trigger("reset");
+
+            // jump to trailer display
+            $('html,body').animate({
+                scrollTop: $("#searchDisplay").offset().top
+                }, 800);
         
         });
     }
@@ -155,5 +160,13 @@ $(function() {
         inputTrendingSearch.val(trendingSearch);
         userSearch();
     });
+
+
+    // onclickpage jump
+    $(".about").on("click", function() {
+        $('html,body').animate({
+            scrollTop: $("#bottom").offset().top
+            }, 800);
+    })
 
 });
