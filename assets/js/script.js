@@ -60,7 +60,7 @@ $(function() {
             var trendingPoster = $("<img>");
             trendingPoster.addClass("trendingPoster");
             trendingPoster.attr("id", response.results[i].title);
-            trendingPoster.attr("src", "http://image.tmdb.org/t/p/w300//" + response.results[i].poster_path);
+            trendingPoster.attr("src", "https://image.tmdb.org/t/p/w300//" + response.results[i].poster_path);
             $(".trendingContainerInner").append(trendingPoster);
         };
     
@@ -97,7 +97,7 @@ $(function() {
         $(".trailerContainer").html(searchDisplay);
         
         // use userInput to pull from the OMDB API
-        var OMDBqueryURL = "http://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
+        var OMDBqueryURL = "https://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
         
         $.ajax ( {
             url: OMDBqueryURL,
