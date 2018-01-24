@@ -5,10 +5,11 @@ $(function() {
     var youtubeLink = '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + youtubeID + '" + frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
     var youtubeTest = '<iframe width="560" height="315" src="https://www.youtube.com/embed/V3Tp0X1OlBQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 
+
     // html code chunks
     var searchDisplay = `
         <div class="jumbotron jumbotron-fluid trailerDisplay">
-            <div class="container">
+            <div class="container contentDisplay">
                 <h1 class="display-4 title"></h1>
                 <div class="row searchContent">
                     <div class="col-sm-4">
@@ -147,7 +148,7 @@ $(function() {
         });
        
     
-    // onclick popular posters
+    // onclick trending posters
     $(document).on("click", ".trendingPoster", function() {
         var trendingSearch = ($(this).attr("id"));
         var inputTrendingSearch = $("#userInput");
