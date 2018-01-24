@@ -27,7 +27,7 @@ body {
 }
 
 
-/* conten containers */
+/* content containers */
 .contentContainer {
     position: absolute;
     top: 4%;
@@ -42,33 +42,61 @@ body {
 }
 
 .card-body {
-    text-align: center;
+    text-align: left;
     padding: 10px 0;
 }
 
+/* Header */
+.header {
+    background-color: black;
+    color: rgba(153, 243, 17, 0.637);
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.headerContainer {
+    margin-top: 13%;
+}
+
+.pageTitle {
+    font-size: 150px;
+    font-family: audiowide;
+}
+
+.subtitle {
+    font-size: 30px;
+}
 
 /* Trending Movies */
-.trendingContainerOuter {
+.nowContainerOuter,
+.comingContainerOuter,
+.airingContainerOuter,
+.trendingTVContainerOuter {
     overflow: scroll;
     width: 100vw;
     height: 300px;
     
 }
 
-.trendingContainerInner {
+.nowContainerInner,
+.comingContainerInner,
+.airingContainerInner,
+.trendingTVContainerInner {
     width: 3900px;
 }
 
-.trendingPoster {
+.posters {
     margin: 5px;
     opacity: .7;
     width: 185px;
     height: auto;
 }
 
-.trendingPoster:hover {
+.posters:hover {
     opacity: 1;
     z-index: 500;
+    cursor: pointer;
 }
 
 /* trailer */
@@ -101,13 +129,10 @@ body {
     text-align: center;
 }
 
-.MovieRating {
+.MovieRating,
+.actors,
+.rated {
   font-size: 20px;
-
-}
-
-.actors {
-    font-size: 20px;
 }
 
 
@@ -115,13 +140,19 @@ body {
 .footer {
     margin-bottom: 0;
     background-color: rgb(73, 72, 72) !important;
-    text-align: center;
     color: white;
     padding: 2%;
   }
 
+.footerTitle {
+    color: rgba(153, 243, 17, 0.637);
+    font-family: iceland;
+    font-size: 90px;
+}
+
 .copy {
     margin-top: 2%;
+    text-align: center;
 }
 
 .hover-image {

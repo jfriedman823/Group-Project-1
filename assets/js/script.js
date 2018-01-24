@@ -25,12 +25,21 @@ $(function() {
                         <div class="row">
                             <div class="MovieRating"></div>
                         </div>
+                        <div class="row">
+                            <div class="rated"></div>
+                        </div>
                     </div>
             </div>
     `
 
     // scroll animate
     window.sr = ScrollReveal();
+
+        //animate header
+        sr.reveal(".pageTitle", {
+            duration: 2000,
+            origin: "bottom"
+        });
 
         //animate header
         sr.reveal(".card", {
@@ -45,8 +54,31 @@ $(function() {
         });
 
 
-    // display of popular movies
-    var trendingQueryURL = "https://api.themoviedb.org/3/movie/popular?api_key=cf951ca687c6c8d3aa6e201a85673392&language=en-US&page=1";
+    // display of movies currently in theaters
+    var nowPlayingQueryURL = "https://api.themoviedb.org/3/movie/now_playing?api_key=cf951ca687c6c8d3aa6e201a85673392&language=en-US&page=1";
+
+    $.ajax ( {
+        url: nowPlayingQueryURL,
+        method: 'GET'
+        }).done(function(response) {
+    
+        // $(".trendingContainer").text(JSON.stringify(response));
+        console.log(response.results);
+    
+        for (i = 0; i < response.results.length; i++) {
+            var nowPlayingPoster = $("<img>");
+            nowPlayingPoster.addClass("posters");
+            nowPlayingPoster.attr("id", response.results[i].title);
+            nowPlayingPoster.attr("src", "https://image.tmdb.org/t/p/w300//" + response.results[i].poster_path);
+            $(".nowContainerInner").append(nowPlayingPoster);
+        };
+    
+    });
+
+
+
+    // display of movies coming soon
+    var trendingQueryURL = "https://api.themoviedb.org/3/movie/upcoming?api_key=cf951ca687c6c8d3aa6e201a85673392&language=en-US&page=1";
 
     $.ajax ( {
         url: trendingQueryURL,
@@ -57,11 +89,55 @@ $(function() {
         console.log(response.results);
     
         for (i = 0; i < response.results.length; i++) {
-            var trendingPoster = $("<img>");
-            trendingPoster.addClass("trendingPoster");
-            trendingPoster.attr("id", response.results[i].title);
-            trendingPoster.attr("src", "http://image.tmdb.org/t/p/w300//" + response.results[i].poster_path);
-            $(".trendingContainerInner").append(trendingPoster);
+            var comingPoster = $("<img>");
+            comingPoster.addClass("posters");
+            comingPoster.attr("id", response.results[i].title);
+            comingPoster.attr("src", "https://image.tmdb.org/t/p/w300//" + response.results[i].poster_path);
+            $(".comingContainerInner").append(comingPoster);
+        };
+    
+    });
+
+
+    // display of tv shows airing today
+    var airingTVQueryURL = "https://api.themoviedb.org/3/tv/airing_today?api_key=cf951ca687c6c8d3aa6e201a85673392&language=en-US&page=1";
+
+    $.ajax ( {
+        url: airingTVQueryURL,
+        method: 'GET'
+        }).done(function(response) {
+    
+        // $(".trendingContainer").text(JSON.stringify(response));
+        console.log(response.results);
+    
+        for (i = 0; i < response.results.length; i++) {
+            var airingTVPoster = $("<img>");
+            airingTVPoster.addClass("posters");
+            airingTVPoster.attr("id", response.results[i].name);
+            airingTVPoster.attr("src", "https://image.tmdb.org/t/p/w300//" + response.results[i].poster_path);
+            $(".airingContainerInner").append(airingTVPoster);
+        };
+    
+    });    
+
+
+    // display of trending tv shows
+    var trendingTVQueryURL = "https://api.themoviedb.org/3/tv/popular?api_key=cf951ca687c6c8d3aa6e201a85673392&language=en-US&page=1";
+
+    $.ajax ( {
+        url: trendingTVQueryURL,
+        method: 'GET'
+        }).done(function(response) {
+    
+        // $(".trendingContainer").text(JSON.stringify(response));
+        console.log(response.results);
+    
+        for (i = 0; i < response.results.length; i++) {
+            var trendingTVPoster = $("<img>");
+            trendingTVPoster.addClass("posters");
+            trendingTVPoster.attr("id", response.results[i].name);
+            trendingTVPoster.attr("src", "https://image.tmdb.org/t/p/w300//" + response.results[i].poster_path);
+            $(".trendingTVContainerInner").append(trendingTVPoster);
         };
     
     });
@@ -97,7 +173,7 @@ $(function() {
         $(".trailerContainer").html(searchDisplay);
         
         // use userInput to pull from the OMDB API
-        var OMDBqueryURL = "http://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
+        var OMDBqueryURL = "https://www.omdbapi.com/?apikey=9f68b70&s&y=&plot=short&t=" + userInput;
         
         $.ajax ( {
             url: OMDBqueryURL,
@@ -118,7 +194,7 @@ $(function() {
             var imdbRating = response.imdbRating;
             //  var rtRating = response.Ratings[1].value;
             //  var mcRating = response.Ratings[3].value;
-            var plot = response.Plot;
+            var rated = response.Rated;
         
             // add trailer for the Youtube search
             var trailerSearch = title + "+trailer";
@@ -132,7 +208,7 @@ $(function() {
             $(".title").text(title);
             $(".MovieRating").html("<b>Rating:</b> " + imdbRating);
             $(".actors").html("<b>Actors:</b> " + actors);
-            $(".plot").html("<b>Plot:</b> " + plot);
+            $(".rated").html("<b>Rated:</b> " + rated);
         
             // empty search bard
             $("form").trigger("reset");
@@ -153,8 +229,8 @@ $(function() {
         });
        
     
-    // onclick trending posters
-    $(document).on("click", ".trendingPoster", function() {
+    // onclick  posters
+    $(document).on("click", ".posters", function() {
         var trendingSearch = ($(this).attr("id"));
         var inputTrendingSearch = $("#userInput");
         inputTrendingSearch.val(trendingSearch);
@@ -162,11 +238,42 @@ $(function() {
     });
 
 
+
     // onclickpage jump
+    $(".home").on("click", function() {
+        $('html,body').animate({
+            scrollTop: $("#home").offset().top
+        }, 1000);
+    })
+
     $(".about").on("click", function() {
         $('html,body').animate({
             scrollTop: $("#bottom").offset().top
-            }, 800);
+            }, 1000);
+    })
+
+    $(".nowPlaying").on("click", function() {
+        $('html,body').animate({
+            scrollTop: $("#nowPlaying").offset().top - 80
+        }, 1000);
+    })
+
+    $(".comingSoon").on("click", function() {
+        $('html,body').animate({
+            scrollTop: $("#comingSoon").offset().top - 80
+        }, 1000);
+    })
+
+    $(".airing").on("click", function() {
+        $('html,body').animate({
+            scrollTop: $("#airing").offset().top - 80
+        }, 1000);
+    })
+
+    $(".trending").on("click", function() {
+        $('html,body').animate({
+            scrollTop: $("#trending").offset().top - 80
+        }, 1000);
     })
 
 });
